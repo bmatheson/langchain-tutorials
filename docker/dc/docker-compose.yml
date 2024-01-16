@@ -1,0 +1,22 @@
+version: "3.7"
+services:
+  notebook:
+    build:
+      context: ../../
+      dockerfile: ./docker/Dockerfile
+    image: langchain-tutorials-jupyter:latest
+    ports:
+      - 8888:8888
+    volumes:
+      - "../../:/home/jovyan/work"
+      - "~/.ssh/:/home/jovyan/.ssh/"
+      - "~/.gcloud/:/home/jovyan/.gcloud/"
+    env_file: ../../.env
+  
+  postgres:
+    image: postgres:11
+    ports:
+      - "5432:5432"
+    volumes:
+      - "../../data/postgresql:/var/lib/postgresql/data"
+      
